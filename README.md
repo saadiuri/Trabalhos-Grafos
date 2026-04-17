@@ -1,4 +1,4 @@
-# Repositório de Grafos
+# Repositório dos Trabalhos de Grafos
 
 Este repositório contém os códigos e documentos utilizados nos trabalhos da disciplina de Grafos.
 
