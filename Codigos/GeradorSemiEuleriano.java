@@ -83,7 +83,7 @@ public class GeradorSemiEuleriano {
         Graph g = gerarEuleriano(V);
         Random rand = new Random();
 
-        // adiciona 1 aresta → cria 2 ímpares
+        // adiciona 1 aresta cria 2 ímpares
         while (true) {
             int u = rand.nextInt(V);
             int v = rand.nextInt(V);

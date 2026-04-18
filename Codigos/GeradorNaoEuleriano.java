@@ -81,7 +81,6 @@ public class GeradorNaoEuleriano {
         return impares > 2;
     }
 
-    // MAIN
     public static void main(String[] args) {
 
         int[] testes = { 10, 100000 };

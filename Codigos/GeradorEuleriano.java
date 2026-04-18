@@ -4,7 +4,6 @@ import java.util.*;
 
 public class GeradorEuleriano {
 
-    // CLASSE GRAFO
     static class Graph {
         int V;
         HashSet<Integer>[] adj;
@@ -116,7 +115,6 @@ public class GeradorEuleriano {
         return true;
     }
 
-    // MAIN
     public static void main(String[] args) {
 
         int[] testes = { 10, 100000 };
