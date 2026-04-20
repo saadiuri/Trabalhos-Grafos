@@ -49,5 +49,20 @@ public class Main {
                 g.printGraph();
             }
         }
+
+        //teste fleury
+        int V = 10;
+        int grauM = 4; // Use um grau médio menor para grafos pequenos ficarem visíveis
+
+        System.out.println("Gerando Grafo...");
+        Grafo gTeste = GeradorGrafos.gerarEuleriano(V, grauM);
+        gTeste.printGraph();
+
+        System.out.println("\nIniciando Fleury...");
+        long inicio = System.currentTimeMillis();
+        AlgoritmoFleury.encontrarCaminhoEuleriano(gTeste);
+        long fim = System.currentTimeMillis();
+
+        System.out.println("Tempo do Fleury: " + (fim - inicio) + " ms");
     }
 }
