@@ -1,4 +1,4 @@
-package CodigoCorreto;
+// package CodigoCorreto;
 
 import java.util.*;
 //codigo baseado no slide 10-Grafos Hamiltonianos e Eurelianos - Fleury.pdf, pagina 25
@@ -87,9 +87,7 @@ public class AlgoritmoFleury {
         System.out.println(); 
     }
 
-    // ========================================================================
     // MÉTODO TEMPORÁRIO DE PONTE (Método Naïve simples), substuit qndo ponte estiver pronto
-    // ========================================================================
     private static boolean isPonteTemporario(Grafo g, int u, int v) {
         int countAntes = contarAlcancaveis(g, u);
         

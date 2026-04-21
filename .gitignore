@@ -1,2 +1,5 @@
 # arquivos compilados Java
 *.class
+
+# pasta de códigos auxiliares/teste
+Codigos/
