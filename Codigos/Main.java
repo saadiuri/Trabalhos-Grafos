@@ -5,7 +5,7 @@ public class Main {
     public static void main(String[] args) {
 
         int[] tamanhos = { 10 };
-        int grauMedio = 6;
+        int grauMedio = 6; // E = (V * grauMedio) / 2    limite grauMedio = 170
 
         System.out.println("===== EXPERIMENTOS - IDENTIFICACAO DE PONTES =====\n");
 
@@ -32,27 +32,16 @@ public class Main {
         System.out.println("\nGrafo de teste:");
         gTeste.printGraph();
 
-        // FLEURY COM TARJAN
-        System.out.println("\nFleury (Tarjan):");
+        // Fleury usando Tarjan (ideal)
+        System.out.println("\nFleury (usando Tarjan):");
         long inicio = System.currentTimeMillis();
-
-        Grafo g1 = AlgoritmoFleury.copiarGrafo(gTeste);
-        AlgoritmoFleury.encontrarCaminhoEuleriano(g1, true);
-
+        AlgoritmoFleury.encontrarCaminhoEuleriano(gTeste, true);
         long fim = System.currentTimeMillis();
-        System.out.println("Tempo Fleury (Tarjan): " + (fim - inicio) + " ms");
 
-        // FLEURY COM NAIVE
-        System.out.println("\nFleury (Naive):");
-        inicio = System.currentTimeMillis();
-
-        Grafo g2 = AlgoritmoFleury.copiarGrafo(gTeste);
-        AlgoritmoFleury.encontrarCaminhoEuleriano(g2, false);
-
-        fim = System.currentTimeMillis();
-        System.out.println("Tempo Fleury (Naive): " + (fim - inicio) + " ms");
+        System.out.println("Tempo Fleury: " + (fim - inicio) + " ms");
     }
-    // TESTE DE GRAFO
+    // MÉTODO AUXILIA
+
     public static void testarGrafo(String tipo, Grafo g, int V) {
 
         System.out.println("\n--- " + tipo + " ---");
@@ -64,14 +53,14 @@ public class Main {
 
         long inicio, fim;
 
-        // TARJAN
+        // TARJAN (sempre roda)
         inicio = System.currentTimeMillis();
         IdentificadorPontes.encontrarPontesTarjan(g);
         fim = System.currentTimeMillis();
 
         System.out.println("Tarjan: " + (fim - inicio) + " ms");
 
-        // NAIVE (controlado)
+        // NAIVE (somente para grafos menores)
         if (V <= 10000) {
             inicio = System.currentTimeMillis();
             IdentificadorPontes.encontrarPontesNaive(g);
