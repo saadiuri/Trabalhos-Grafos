@@ -5,7 +5,7 @@ public class Main {
     public static void main(String[] args) {
 
         int[] tamanhos = { 10 };
-        int grauMedio = 6; // E = (V * grauMedio) / 2    limite grauMedio = 170
+        int grauMedio = 6; // E = (V * grauMedio) / 2 limite grauMedio = 170
 
         System.out.println("===== EXPERIMENTOS - IDENTIFICACAO DE PONTES =====\n");
 
@@ -32,13 +32,25 @@ public class Main {
         System.out.println("\nGrafo de teste:");
         gTeste.printGraph();
 
-        // Fleury usando Tarjan (ideal)
-        System.out.println("\nFleury (usando Tarjan):");
+        // 🔵 Fleury com Tarjan
+        System.out.println("\nFleury (Tarjan):");
         long inicio = System.currentTimeMillis();
-        AlgoritmoFleury.encontrarCaminhoEuleriano(gTeste, true);
-        long fim = System.currentTimeMillis();
 
-        System.out.println("Tempo Fleury: " + (fim - inicio) + " ms");
+        Grafo g1 = AlgoritmoFleury.copiarGrafo(gTeste);
+        AlgoritmoFleury.encontrarCaminhoEuleriano(g1, true);
+
+        long fim = System.currentTimeMillis();
+        System.out.println("Tempo Fleury (Tarjan): " + (fim - inicio) + " ms");
+
+        // 🔴 Fleury com Naive
+        System.out.println("\nFleury (Naive):");
+        inicio = System.currentTimeMillis();
+
+        Grafo g2 = AlgoritmoFleury.copiarGrafo(gTeste);
+        AlgoritmoFleury.encontrarCaminhoEuleriano(g2, false);
+
+        fim = System.currentTimeMillis();
+        System.out.println("Tempo Fleury (Naive): " + (fim - inicio) + " ms");
     }
     // MÉTODO AUXILIA
 
