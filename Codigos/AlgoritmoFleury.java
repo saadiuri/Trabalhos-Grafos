@@ -1,4 +1,4 @@
-// package CodigoCorreto;
+ package Codigos;
 
 import java.util.*;
 //codigo baseado no slide 10-Grafos Hamiltonianos e Eurelianos - Fleury.pdf, pagina 25
@@ -16,7 +16,7 @@ public class AlgoritmoFleury {
     }
 
     // inicio do fleury
-    public static void encontrarCaminhoEuleriano(Grafo grafoOriginal) {
+    public static void encontrarCaminhoEuleriano(Grafo grafoOriginal, boolean usarTarjan) {
         
         String tipo = grafoOriginal.tipoEuleriano();
 
@@ -57,7 +57,7 @@ public class AlgoritmoFleury {
             for (int w : vizinhos) {
                 
                 // se só tem uma opção OU se a aresta não for ponte
-                if (vizinhos.size() == 1 || !isPonteTemporario(g, v, w)) {
+                if (vizinhos.size() == 1 || !isPonte(g, v, w, usarTarjan)) {
                     proximoV = w;
                     break; 
                 }
@@ -87,20 +87,27 @@ public class AlgoritmoFleury {
         System.out.println(); 
     }
 
-    // MÉTODO TEMPORÁRIO DE PONTE (Método Naïve simples), substuit qndo ponte estiver pronto
-    private static boolean isPonteTemporario(Grafo g, int u, int v) {
-        int countAntes = contarAlcancaveis(g, u);
+   // verificação de ponte
+    private static boolean isPonte(Grafo g, int u, int v, boolean usarTarjan) {
         
-        // remove temporariamente
-        g.adj[u].remove(v);
-        g.adj[v].remove(u);
+        List<IdentificadorPontes.Edge> pontes;
         
-        int countDepois = contarAlcancaveis(g, u);
+        // lista de pontes vindo do identificador de pontes
+        if (usarTarjan) {
+            pontes = IdentificadorPontes.encontrarPontesTarjan(g);
+        } else {
+            pontes = IdentificadorPontes.encontrarPontesNaive(g);
+        }
+
+        // verifica se  aresta está dentro dessa lista de pontes
+        for (IdentificadorPontes.Edge ponte : pontes) {
+            // Como o grafo é não-direcionado, a aresta pode vir como (u, v) ou (v, u)
+            if ((ponte.u == u && ponte.v == v) || (ponte.u == v && ponte.v == u)) {
+                return true; // Sim, é uma ponte!
+            }
+        }
         
-        // devolve a aresta
-        g.addEdge(u, v);
-        
-        return countAntes > countDepois;
+        return false; // Não está na lista, é seguro atravessar.
     }
 
     private static int contarAlcancaveis(Grafo g, int inicio) {
