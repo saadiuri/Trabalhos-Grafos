@@ -4,8 +4,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int[] tamanhos = { 10 };
-        int grauMedio = 6; // E = (V * grauMedio) / 2 limite grauMedio = 170
+        int[] tamanhos = { 10, 100, 1000, 10000, 100000 };
+        int grauMedio = 6;
 
         System.out.println("===== EXPERIMENTOS - IDENTIFICACAO DE PONTES =====\n");
 
@@ -20,7 +20,9 @@ public class Main {
             testarGrafo("Nao Euleriano", GeradorGrafos.gerarNaoEuleriano(V, grauMedio), V);
         }
 
-        // TESTE DO FLEURY
+        // ===============================
+        // TESTE DO FLEURY (APENAS V = 10)
+        // ===============================
 
         System.out.println("\n\n===== TESTE DO FLEURY =====");
 
@@ -52,27 +54,30 @@ public class Main {
         fim = System.currentTimeMillis();
         System.out.println("Tempo Fleury (Naive): " + (fim - inicio) + " ms");
     }
-    // MÉTODO AUXILIA
 
+    // ===============================
+    // TESTE DOS GRAFOS
+    // ===============================
     public static void testarGrafo(String tipo, Grafo g, int V) {
 
         System.out.println("\n--- " + tipo + " ---");
         System.out.println("Tipo detectado: " + g.tipoEuleriano());
 
+        // 🔥 MOSTRA O GRAFO SÓ QUANDO FOR PEQUENO
         if (V == 10) {
             g.printGraph();
         }
 
         long inicio, fim;
 
-        // TARJAN (sempre roda)
+        // TARJAN
         inicio = System.currentTimeMillis();
         IdentificadorPontes.encontrarPontesTarjan(g);
         fim = System.currentTimeMillis();
 
         System.out.println("Tarjan: " + (fim - inicio) + " ms");
 
-        // NAIVE (somente para grafos menores)
+        // NAIVE (evita explodir tempo)
         if (V <= 10000) {
             inicio = System.currentTimeMillis();
             IdentificadorPontes.encontrarPontesNaive(g);
