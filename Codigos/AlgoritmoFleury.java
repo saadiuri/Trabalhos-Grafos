@@ -1,6 +1,8 @@
- package Codigos;
 
+package Codigos;
 import java.util.*;
+
+
 //codigo baseado no slide 10-Grafos Hamiltonianos e Eurelianos - Fleury.pdf, pagina 25
 public class AlgoritmoFleury {
 

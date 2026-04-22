@@ -35,7 +35,7 @@ public class Main {
         // Fleury usando Tarjan (ideal)
         System.out.println("\nFleury (usando Tarjan):");
         long inicio = System.currentTimeMillis();
-        AlgoritmoFleury.encontrarCaminhoEuleriano(gTeste);
+        AlgoritmoFleury.encontrarCaminhoEuleriano(gTeste, true);
         long fim = System.currentTimeMillis();
 
         System.out.println("Tempo Fleury: " + (fim - inicio) + " ms");
