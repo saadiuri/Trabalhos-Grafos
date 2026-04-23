@@ -1,5 +1,5 @@
 
-package Codigos;
+//package Codigos;
 
 import java.util.*;
 
@@ -23,7 +23,7 @@ public class AlgoritmoFleury {
         String tipo = grafoOriginal.tipoEuleriano();
 
         if (tipo.equals("Nao Euleriano")) {
-            System.out.println("O grafo é Não Euleriano ou desconexo ou possui 3+ vértices ímpares.");
+            Logger.println("O grafo é Não Euleriano ou desconexo ou possui 3+ vértices ímpares.");
             return;
         }
 
@@ -39,11 +39,11 @@ public class AlgoritmoFleury {
             }
         }
 
-        System.out.println("Encontrando caminho para grafo " + tipo);
+        Logger.println("Encontrando caminho para grafo " + tipo);
 
         // ✔ só imprime se permitido
         if (imprimirCaminho) {
-            System.out.print("Caminho: ");
+            Logger.print("Caminho: ");
         }
 
         int arestasRestantes = contarArestas(g);
@@ -67,9 +67,9 @@ public class AlgoritmoFleury {
                 // ✔ só imprime se habilitado
                 if (imprimirCaminho) {
                     if (arestasRestantes > 1) {
-                        System.out.print(v + " -> ");
+                        Logger.print(v + " -> ");
                     } else {
-                        System.out.print(v + " -> " + proximoV);
+                        Logger.print(v + " -> " + proximoV);
                     }
                 }
 
@@ -80,7 +80,7 @@ public class AlgoritmoFleury {
                 arestasRestantes--;
 
             } else {
-                System.out.println("\n[ERRO] Caminho sem saída encontrado antes do fim.");
+                Logger.println("\n[ERRO] Caminho sem saída encontrado antes do fim.");
                 break;
             }
         }
@@ -91,26 +91,34 @@ public class AlgoritmoFleury {
     }
 
     // verificação de ponte
-    private static boolean isPonte(Grafo g, int u, int v, boolean usarTarjan) {
+   private static boolean isPonte(Grafo g, int u, int v, boolean usarTarjan) {
 
-        List<IdentificadorPontes.Edge> pontes;
-
-        // lista de pontes vindo do identificador de pontes
         if (usarTarjan) {
-            pontes = IdentificadorPontes.encontrarPontesTarjan(g);
-        } else {
-            pontes = IdentificadorPontes.encontrarPontesNaive(g);
-        }
-
-        // verifica se aresta está dentro dessa lista de pontes
-        for (IdentificadorPontes.Edge ponte : pontes) {
-            // Como o grafo é não-direcionado, a aresta pode vir como (u, v) ou (v, u)
-            if ((ponte.u == u && ponte.v == v) || (ponte.u == v && ponte.v == u)) {
-                return true; // Sim, é uma ponte!
+            // TARJAN: É muito rápido, então podemos pegar a lista completa de pontes
+            List<IdentificadorPontes.Edge> pontes = IdentificadorPontes.encontrarPontesTarjan(g);
+            
+            for (IdentificadorPontes.Edge ponte : pontes) {
+                if ((ponte.u == u && ponte.v == v) || (ponte.u == v && ponte.v == u)) {
+                    return true; 
+                }
             }
-        }
+            return false;
+            
+        } else {
+            // NAÏVE: Testa SOMENTE a aresta específica (u, v), sem recalcular o grafo todo!
+            int countAntes = contarAlcancaveis(g, u);
 
-        return false; // Não está na lista, é seguro atravessar.
+            // remove aresta temporariamente
+            g.adj[u].remove(v);
+            g.adj[v].remove(u);
+
+            int countDepois = contarAlcancaveis(g, u);
+
+            // restaura aresta
+            g.addEdge(u, v);
+
+            return countAntes > countDepois;
+        }
     }
 
     private static int contarAlcancaveis(Grafo g, int inicio) {
