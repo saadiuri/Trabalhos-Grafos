@@ -4,13 +4,13 @@ import java.util.*;
 
 public class IdentificadorPontes {
 
-    // MÉTODO NAÏVE
+    // MÉTODO NAIVE
     public static List<Edge> encontrarPontesNaive(Grafo g) {
         List<Edge> pontes = new ArrayList<>();
 
         for (int u = 0; u < g.V; u++) {
 
-            // iterar sobre cópia (evita ConcurrentModification)
+            // iterar sobre cópia 
             for (int v : new ArrayList<>(g.adj[u])) {
 
                 if (u < v) {
@@ -63,7 +63,7 @@ public class IdentificadorPontes {
         return count;
     }
 
-    // TARJAN ITERATIVO (CORRIGIDO)
+    // TARJAN ITERATIVO 
     public static List<Edge> encontrarPontesTarjan(Grafo g) {
 
         List<Edge> pontes = new ArrayList<>();
