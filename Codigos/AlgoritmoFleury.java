@@ -41,7 +41,7 @@ public class AlgoritmoFleury {
 
         Logger.println("Encontrando caminho para grafo " + tipo);
 
-        // ✔ só imprime se permitido
+        //  só imprime se permitido
         if (imprimirCaminho) {
             Logger.print("Caminho: ");
         }
@@ -64,7 +64,7 @@ public class AlgoritmoFleury {
 
             if (proximoV != -1) {
 
-                // ✔ só imprime se habilitado
+                // só imprime se habilitado
                 if (imprimirCaminho) {
                     if (arestasRestantes > 1) {
                         Logger.print(v + " -> ");
@@ -94,7 +94,7 @@ public class AlgoritmoFleury {
    private static boolean isPonte(Grafo g, int u, int v, boolean usarTarjan) {
 
         if (usarTarjan) {
-            // TARJAN: É muito rápido, então podemos pegar a lista completa de pontes
+            // TARJAN
             List<IdentificadorPontes.Edge> pontes = IdentificadorPontes.encontrarPontesTarjan(g);
             
             for (IdentificadorPontes.Edge ponte : pontes) {
@@ -105,7 +105,7 @@ public class AlgoritmoFleury {
             return false;
             
         } else {
-            // NAÏVE: Testa SOMENTE a aresta específica (u, v), sem recalcular o grafo todo!
+            // NAIVE
             int countAntes = contarAlcancaveis(g, u);
 
             // remove aresta temporariamente
