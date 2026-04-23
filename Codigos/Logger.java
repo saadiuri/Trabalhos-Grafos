@@ -21,16 +21,16 @@ public class Logger {
         }
     }
 
-    // Imprime com quebra de linha em ambos
+    // Imprime com quebra de linha em arquivo e em terminal
     public static void println(String message) {
         System.out.println(message);
         if (writer != null) {
             writer.println(message);
-            writer.flush(); // Garante que escreveu no arquivo
+            writer.flush(); 
         }
     }
 
-    // Imprime sem quebra de linha (útil para o caminho do Fleury)
+    // Imprime sem quebra de linha 
     public static void print(String message) {
         System.out.print(message);
         if (writer != null) {
