@@ -44,21 +44,21 @@ public class Main {
         long inicio, fim;
 
         // TARJAN
-        inicio = System.currentTimeMillis();
+        inicio = System.nanoTime();
         Grafo g1 = AlgoritmoFleury.copiarGrafo(gTeste);
         AlgoritmoFleury.encontrarCaminhoEuleriano(g1, true, V == 10);
-        fim = System.currentTimeMillis();
+        fim = System.nanoTime();
 
-        Logger.println("Fleury (Tarjan): " + (fim - inicio) + " ms");
+        Logger.println("Fleury (Tarjan): " + ((fim - inicio) / 1_000_000.0) + " ms");
 
         // NAIVE (com limite)
         if (V <= LIMITE_NAIVE) {
-            inicio = System.currentTimeMillis();
+            inicio = System.nanoTime();
             Grafo g2 = AlgoritmoFleury.copiarGrafo(gTeste);
             AlgoritmoFleury.encontrarCaminhoEuleriano(g2, false, V == 10);
-            fim = System.currentTimeMillis();
+            fim = System.nanoTime();
 
-            Logger.println("Fleury (Naive): " + (fim - inicio) + " ms");
+            Logger.println("Fleury (Naive): " + ((fim - inicio) / 1_000_000.0) + " ms");
         } else {
             Logger.println("Fleury (Naive): pulado (V muito grande)");
         }
@@ -78,21 +78,21 @@ public class Main {
         long inicio, fim;
 
         // TARJAN
-        inicio = System.currentTimeMillis();
+        inicio = System.nanoTime();
         IdentificadorPontes.encontrarPontesTarjan(g);
-        fim = System.currentTimeMillis();
+        fim = System.nanoTime();
 
-        Logger.println("Tarjan: " + (fim - inicio) + " ms");
+        Logger.println("Tarjan: " + ((fim - inicio) / 1_000_000.0) + " ms");
 
         // NAIVE (com limite)
         if (V <= LIMITE_NAIVE) {
             Logger.println("Naive: executando...");
 
-            inicio = System.currentTimeMillis();
+            inicio = System.nanoTime();
             IdentificadorPontes.encontrarPontesNaive(g);
-            fim = System.currentTimeMillis();
+            fim = System.nanoTime();
 
-            Logger.println("Naive: " + (fim - inicio) + " ms");
+            Logger.println("Naive: " + ((fim - inicio) / 1_000_000.0) + " ms");
         } else {
             Logger.println("Naive: pulado (V muito grande)");
         }
